@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="machine learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Abstract: 机器学习基石（林轩田）第五讲，训练与测试(Training versus Testing)">
+<meta name="keywords" content="machine learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="machine-learning-foundations-5">
+<meta property="og:url" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/index.html">
+<meta property="og:site_name" content="Treemann&#39;s blog">
+<meta property="og:description" content="Abstract: 机器学习基石（林轩田）第五讲，训练与测试(Training versus Testing)">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-1.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-2.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-3.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-4.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-5.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-6.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-7.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-8.JPG">
+<meta property="og:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-9.JPG">
+<meta property="og:updated_time" content="2018-05-08T13:31:40.630Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="machine-learning-foundations-5">
+<meta name="twitter:description" content="Abstract: 机器学习基石（林轩田）第五讲，训练与测试(Training versus Testing)">
+<meta name="twitter:image" content="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/figure-1.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/"/>
+
+
+
+
+
+  <title>machine-learning-foundations-5 | Treemann's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Treemann's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://treemann.github.io/2018/05/08/machine-learning-foundations-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Treemann">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Treemann's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">machine-learning-foundations-5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-08T14:34:29+08:00">
+                2018-05-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-08T21:31:40+08:00">
+                2018-05-08
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Abstract: 机器学习基石（林轩田）第五讲，训练与测试(Training versus Testing)</p>
+<a id="more"></a>
+<ol>
+<li><p>前期回顾<br> 学习可以归结为以下两个问题：</p>
+<ul>
+<li>是否能够保证 ${E}<em>{out}(g) \approx {E}</em>{in}(g)$ ？</li>
+<li>是否能够保证 ${E}_{in}(g)$ 足够小 ？</li>
+</ul>
+<hr>
+<p> 训练与测试对应的阶段如下：<br> $$<br> {E}<em>{out}(g) \underbrace{\approx}</em>{test} {E}<em>{in}(g) \underbrace{\approx}</em>{train} 0<br> $$<br> 前面已知的结论是：<br> $$<br> \mathbb{P}[|{E}<em>{in}(g)-{E}</em>{out}(g)|&gt;\epsilon] \leq 2·M·exp(-2{\epsilon}^{2}N)<br> $$<br> <strong>Trade-off on M</strong></p>
+<ul>
+<li>small M:<br>  可以满足学习的第一个条件，不满足第二个条件(假设空间太小，选择太少)</li>
+<li>large M:<br>  可以满足学习的第二个条件，不满足第一个条件(假设空间太大，很差的假设变多，可能选到很差的假设)<br>因此，选择合适的M值 ${m}_{\mathcal{H}}$ 以达到折中的效果很重要的。</li>
+</ul>
+</li>
+<li><p>二维平面上的二分类直线情形的有效数量</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-1.JPG">
+<p> union bound等号成立的条件是所有的 ${\mathcal{B}}_{m}$ 不重叠，实际很多情况下会有重叠部分，所以说按照原来的计算，union bound是被overestimated。<br> 按照类别将假设空间划分为不重叠的区域，得到的有效假设的数量相比原来的union bound将减小。对于使用直线对二维平面上的点进行二分类的例子：</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-2.JPG">
+</li>
+<li><p>假设的有效数量<br> Dichotomy代表一种二分类的形式，使用dichotomy来描述直线的假设空间，能够得到假设数量最小的假设空间。那么相应的数量就从无穷多变成以 $2^N$ 为上限。</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-3.JPG">
+<p> 通过引入增长函数(growth function)，代表所有情形下可能的最大的假设空间数量，从而排除了假设空间数量对于问题具体情形的依赖（比如平面上三点共线和不共线时对应的二分情形）。<br> (1) Growth Function for Positive Rays</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-4.JPG">
+<p> (2) Growth Function for Positive Intervals</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-5.JPG">
+<p> (3) Growth Function for Convex Sets<br> 每一种二分都能通过凸集实现，因此可以称这N个输入被凸集假设<strong>打散</strong>。</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-6.JPG">
+</li>
+<li><p>转折点(Break Point)</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-7.JPG">
+<p> 要研究2D或者更普遍的perceptron的 ${m}_{\mathcal{H}}(N)$ 是否为多项式形式，需要先引入break point。</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-8.JPG">
+<p> 通过下图的归纳，似乎可以得到growth function与break point的关系呈多项式形态？疑问待后面解开。</p>
+ <img src="/2018/05/08/machine-learning-foundations-5/figure-9.JPG">
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/07/machine-learning-foundations-4/" rel="next" title="machine-learning-foundations-4">
+                <i class="fa fa-chevron-left"></i> machine-learning-foundations-4
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/10/TeXLive-TeXstudio/" rel="prev" title="TeXLive-TeXstudio">
+                TeXLive-TeXstudio <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Treemann</p>
+              <p class="site-description motion-element" itemprop="description">Spontaneous perception</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Treemann</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
