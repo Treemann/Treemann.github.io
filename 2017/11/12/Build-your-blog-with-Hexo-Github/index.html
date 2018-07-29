@@ -404,7 +404,7 @@
 <pre><code>mathjax:
   enable: true
   per_page: true
-</code></pre><p> (2) hexo默认使用marked.js解析markdown，_ 代表斜体，会被处理成 &lt;em&gt; 标签，比如 x_i 会先被转化为 x&lt;em&gt;i&lt;/em&gt;，随后mathjax就无法渲染。\ 的换行在markdown中会被转义成 \，也会影响mathjax对 \ 的渲染。<br> 打开node_modules\hexo-renderer-marked\node_modules\marked\lib\marked.js，做以下修改：<br> 将</p>
+</code></pre><p> (2) hexo默认使用marked.js解析markdown，_ 代表斜体，会被处理成 &lt;em&gt; 标签，比如 x_i 会先被转化为 x&lt;em&gt;i&lt;/em&gt;，随后mathjax就无法渲染。\\ 的换行在markdown中会被转义成 \，也会影响mathjax对 \\ 的渲染。<br> 打开node_modules\hexo-renderer-marked\node_modules\marked\lib\marked.js，做以下修改：<br> 将</p>
 <pre><code>escape: /^\\([\\`*{}\[\]()# +\-.!_&gt;])/,
 </code></pre><p> 改为</p>
 <pre><code>escape: /^\\([`*{}\[\]()# +\-.!_&gt;])/,
@@ -557,7 +557,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 </a>

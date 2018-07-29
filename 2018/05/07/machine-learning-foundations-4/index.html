@@ -357,7 +357,7 @@
 <li><p>Connection to Learning</p>
  <img src="/2018/05/07/machine-learning-foundations-4/figure-3-1.JPG">
  <img src="/2018/05/07/machine-learning-foundations-4/figure-3-2.JPG">
-<p> 对任意固定的假设h，在数据量足够大的情况下(N足够大)，根据Hoeffding’s Inequality：<br> $$ \mathbb{P}[|{E}<em>{in}(h)-{E}</em>{out}(h)|&gt;\epsilon]\leq 2exp(-2{\epsilon}^{2}N) $$<br> 故：<br> $$<br> ‘{E}<em>{in}(h)\approx{E}</em>{out}(h)’\ and\ ‘{E}<em>{in}(h)\ small’<br> \Rightarrow {E}</em>{out}(h)\ small \Rightarrow h \approx f\ with\ repect\ to\ P<br> $$<br> <strong>Verification of One h</strong></p>
+<p> 对任意固定的假设h，在数据量足够大的情况下(N足够大)，根据Hoeffding’s Inequality：<br> $$ \mathbb{P}[|{E}_{in}(h)-{E}_{out}(h)|&gt;\epsilon]\leq 2exp(-2{\epsilon}^{2}N) $$<br> 故：<br> $$<br> ‘{E}_{in}(h)\approx{E}_{out}(h)’\ and\ ‘{E}_{in}(h)\ small’<br> \Rightarrow {E}_{out}(h)\ small \Rightarrow h \approx f\ with\ repect\ to\ P<br> $$<br> <strong>Verification of One h</strong></p>
  <img src="/2018/05/07/machine-learning-foundations-4/figure-3-3.JPG">
 <p> 算法选出的g是否能近似真实的f，关键在于算法是自由选择而非被迫选择(有偏)。<br> 验证的流程图：</p>
  <img src="/2018/05/07/machine-learning-foundations-4/figure-3-4.JPG">
@@ -369,7 +369,7 @@
  <img src="/2018/05/07/machine-learning-foundations-4/figure-3-8.JPG">
 <p> 最合理的算法 $\mathcal{A}$ 选择 ${E}_{in}(h_m)$ 最小的 $h_m$ 作为 g，有些像pocket PLA的贪婪性质。</p>
  <img src="/2018/05/07/machine-learning-foundations-4/figure-3-9.JPG">
-<p> 即，对于有限的假设空间，在采样数据N足够大(意味着 ${E}<em>{out}(g)\approx{E}</em>{in}(g)$ )且算法 $\mathcal{A}$ 选择的 g 满足 ${E}<em>{in}(g)\approx 0$，则 ${E}</em>{out}(g)\approx 0$ ，学习是可能的。</p>
+<p> 即，对于有限的假设空间，在采样数据N足够大(意味着 ${E}_{out}(g)\approx{E}_{in}(g)$ )且算法 $\mathcal{A}$ 选择的 g 满足 ${E}_{in}(g)\approx 0$，则 ${E}_{out}(g)\approx 0$ ，学习是可能的。</p>
 </li>
 </ol>
 
@@ -494,7 +494,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 </a>

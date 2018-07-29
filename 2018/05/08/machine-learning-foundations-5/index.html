@@ -337,11 +337,11 @@
 <ol>
 <li><p>前期回顾<br> 学习可以归结为以下两个问题：</p>
 <ul>
-<li>是否能够保证 ${E}<em>{out}(g) \approx {E}</em>{in}(g)$ ？</li>
+<li>是否能够保证 ${E}_{out}(g) \approx {E}_{in}(g)$ ？</li>
 <li>是否能够保证 ${E}_{in}(g)$ 足够小 ？</li>
 </ul>
 <hr>
-<p> 训练与测试对应的阶段如下：<br> $$<br> {E}<em>{out}(g) \underbrace{\approx}</em>{test} {E}<em>{in}(g) \underbrace{\approx}</em>{train} 0<br> $$<br> 前面已知的结论是：<br> $$<br> \mathbb{P}[|{E}<em>{in}(g)-{E}</em>{out}(g)|&gt;\epsilon] \leq 2·M·exp(-2{\epsilon}^{2}N)<br> $$<br> <strong>Trade-off on M</strong></p>
+<p> 训练与测试对应的阶段如下：<br> $$<br> {E}_{out}(g) \underbrace{\approx}_{test} {E}_{in}(g) \underbrace{\approx}_{train} 0<br> $$<br> 前面已知的结论是：<br> $$<br> \mathbb{P}[|{E}_{in}(g)-{E}_{out}(g)|&gt;\epsilon] \leq 2·M·exp(-2{\epsilon}^{2}N)<br> $$<br> <strong>Trade-off on M</strong></p>
 <ul>
 <li>small M:<br>  可以满足学习的第一个条件，不满足第二个条件(假设空间太小，选择太少)</li>
 <li>large M:<br>  可以满足学习的第二个条件，不满足第一个条件(假设空间太大，很差的假设变多，可能选到很差的假设)<br>因此，选择合适的M值 ${m}_{\mathcal{H}}$ 以达到折中的效果很重要的。</li>
@@ -491,7 +491,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 </a>

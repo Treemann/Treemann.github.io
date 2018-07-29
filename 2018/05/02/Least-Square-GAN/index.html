@@ -345,7 +345,7 @@
 <li>提出两种LSGAN的网络结构，一个用于生成112x112分辨率的图片，另一个用于多类别的图像生成。</li>
 </ul>
 </li>
-<li><p>方法<br> LSGAN的目标函数为：<br> $$<br> \begin{align}<br> \mathop{\min}<em>{D}V</em>{LSGAN}(D) &amp;=\frac{1}{2}\mathbb{E}<em>{x\sim p</em>{data}(x)}[(D(x)-b)^2]+\frac{1}{2}\mathbb{E}<em>{z\sim p</em>{z}(z)}[(D(G(z))-a)^2] \<br> \mathop{\min}<em>{G}V</em>{LSGAN}(G) &amp;=\frac{1}{2}\mathbb{E}<em>{z\sim p</em>{z}(z)}[(D(G(z))-c)^2]<br> \end{align}<br> $$<br> 其中，c代表G想要使D将它生成的数据判定为什么标签。<br> 随后作者说明了在什么条件下优化问题的目标函数等价为Pearson $X^2$ divergence。<br> 实验中，作者取a=0, b=c=1。</p>
+<li><p>方法<br> LSGAN的目标函数为：<br> $$<br> \begin{align}<br> \mathop{\min}_{D}V_{LSGAN}(D) &amp;=\frac{1}{2}\mathbb{E}_{x\sim p_{data}(x)}[(D(x)-b)^2]+\frac{1}{2}\mathbb{E}_{z\sim p_{z}(z)}[(D(G(z))-a)^2] \\<br> \mathop{\min}_{G}V_{LSGAN}(G) &amp;=\frac{1}{2}\mathbb{E}_{z\sim p_{z}(z)}[(D(G(z))-c)^2]<br> \end{align}<br> $$<br> 其中，c代表G想要使D将它生成的数据判定为什么标签。<br> 随后作者说明了在什么条件下优化问题的目标函数等价为Pearson $X^2$ divergence。<br> 实验中，作者取a=0, b=c=1。</p>
 </li>
 <li><p>网络结构<br> (1) LSGAN</p>
  <img src="/2018/05/02/Least-Square-GAN/struct-1.JPG" title="生成器&判别器">
@@ -485,7 +485,7 @@ ow" target="_blank" rel="noopener">DCGAN的代码</a>进行修改使用，在数
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 </a>

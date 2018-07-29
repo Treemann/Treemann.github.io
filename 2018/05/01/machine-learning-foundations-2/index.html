@@ -350,11 +350,11 @@
  <img src="/2018/05/01/machine-learning-foundations-2/linear-1.JPG">
 <p> 其中，使用$w_f^T w_t$表示当前学到的权重w与真实值的相近程度。</p>
  <img src="/2018/05/01/machine-learning-foundations-2/linear-2.JPG">
-<p> 假设从$w_0=0$开始，经过T轮的错误矫正：<br> $$<br> \begin{align}<br> \frac{w_f^T w_T}{||w_f|| ||w_T||} &amp;\geq \frac{w_f^T w_0+T\min\limits_{n}y_nw_f^Tx_n}{||w_f|| ||w_T||}\<br> &amp;\geq \frac{w_f^T w_0+T\min\limits_{n}y_nw_f^Tx_n}{||w_f||\sqrt{||w_0||^2+T\max\limits_{n}||x_n||^2}}\<br> \xrightarrow{w_0=0} &amp;\geq \sqrt{T} \frac{\min\limits_{n}y_nw_f^Tx_n/||w_f||}{\max\limits_{n}||x_n||} \<br> \xrightarrow[R^2=\max\limits_{n}||x_n||^2]{\rho=\min\limits_{n}y_n\frac{w_f^T}{||w_f||}x_n} &amp;\geq \sqrt{T}\frac{\rho}{R}<br> \end{align}<br> $$<br> 因为$\frac{w_f^T w_T}{||w_f|| ||w_T||}$的最大值为1，因此在线性可分的情况下，PLA修正次数满足：<br> $$<br> T \leq \frac{R^2}{\rho^2}<br> $$</p>
+<p> 假设从$w_0=0$开始，经过T轮的错误矫正：<br> $$<br> \begin{align}<br> \frac{w_f^T w_T}{||w_f|| ||w_T||} &amp;\geq \frac{w_f^T w_0+T\min\limits_{n}y_nw_f^Tx_n}{||w_f|| ||w_T||}\\<br> &amp;\geq \frac{w_f^T w_0+T\min\limits_{n}y_nw_f^Tx_n}{||w_f||\sqrt{||w_0||^2+T\max\limits_{n}||x_n||^2}}\\<br> \xrightarrow{w_0=0} &amp;\geq \sqrt{T} \frac{\min\limits_{n}y_nw_f^Tx_n/||w_f||}{\max\limits_{n}||x_n||} \\<br> \xrightarrow[R^2=\max\limits_{n}||x_n||^2]{\rho=\min\limits_{n}y_n\frac{w_f^T}{||w_f||}x_n} &amp;\geq \sqrt{T}\frac{\rho}{R}<br> \end{align}<br> $$<br> 因为$\frac{w_f^T w_T}{||w_f|| ||w_T||}$的最大值为1，因此在线性可分的情况下，PLA修正次数满足：<br> $$<br> T \leq \frac{R^2}{\rho^2}<br> $$</p>
  <img src="/2018/05/01/machine-learning-foundations-2/linear-3.JPG">
 <p> 实际上，我们可以知道R大小，但是w_f却是未知的，因此实际需要的修正次数T边界也未知。如果迭代一段时间后仍未停止，我们无法判断是未完成(线性可分)或者根本就是线性不可分的。</p>
 </li>
-<li><p>考虑噪声存在(Pocket Algorithm)<br> 实际采集到的数据总是有噪声的干扰，所以有可能会线性不可分，可以尝试找到：<br> $$<br> w_g \leftarrow \mathop{\arg\min}<em>{w}\sum</em>{n=1}^{N}I[y_n \neq sign(w^Tx_n)]<br> $$<br> 其中，$I[·]$为指示函数，内容为真时取1，为假时取0。<br> 该问题已被证实为NP难。</p>
+<li><p>考虑噪声存在(Pocket Algorithm)<br> 实际采集到的数据总是有噪声的干扰，所以有可能会线性不可分，可以尝试找到：<br> $$<br> w_g \leftarrow \mathop{\arg\min}_{w}\sum_{n=1}^{N}I[y_n \neq sign(w^Tx_n)]<br> $$<br> 其中，$I[·]$为指示函数，内容为真时取1，为假时取0。<br> 该问题已被证实为NP难。</p>
 <p> <strong>Pocket Algorithm</strong><br> modify PLA algorithm (black lines) by keeping best weights in pocket<br> 基本思想是对比修改前后的错误样例，若修改后错误变少，则执行修改，有贪心算法的意思。</p>
  <img src="/2018/05/01/machine-learning-foundations-2/pocket.JPG">
 <p> 该算法相比PLA，缺点是速度慢，每次更新前都要统计错误样例数并进行对比。</p>
@@ -482,7 +482,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
