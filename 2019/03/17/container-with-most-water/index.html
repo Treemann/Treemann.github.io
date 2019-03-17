@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="CV,GAN," />
+  <meta name="keywords" content="leetcode,algorithm," />
 
 
 
@@ -79,25 +79,18 @@
 
 
 
-<meta name="description" content="Abstract: 关于GAN的一种形式pix2pix的简介">
-<meta name="keywords" content="CV,GAN">
+<meta name="description" content="Find two lines, which together with x-axis forms a container, such that the container contains the most water.">
+<meta name="keywords" content="leetcode,algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pix2pix">
-<meta property="og:url" content="https://treemann.github.io/2018/04/27/pix2pix/index.html">
+<meta property="og:title" content="container-with-most-water">
+<meta property="og:url" content="https://treemann.github.io/2019/03/17/container-with-most-water/index.html">
 <meta property="og:site_name" content="Treemann&#39;s blog">
-<meta property="og:description" content="Abstract: 关于GAN的一种形式pix2pix的简介">
+<meta property="og:description" content="Find two lines, which together with x-axis forms a container, such that the container contains the most water.">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://treemann.github.io/2018/04/27/pix2pix/f1-example.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/04/27/pix2pix/f2-model.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/04/27/pix2pix/f5-final_loss.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/04/27/pix2pix/f3-cGAN_loss.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/04/27/pix2pix/f4-L1_loss.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/04/27/pix2pix/f6-result.JPG">
-<meta property="og:updated_time" content="2018-04-27T07:50:02.176Z">
+<meta property="og:updated_time" content="2019-03-17T13:56:52.707Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pix2pix">
-<meta name="twitter:description" content="Abstract: 关于GAN的一种形式pix2pix的简介">
-<meta name="twitter:image" content="https://treemann.github.io/2018/04/27/pix2pix/f1-example.JPG">
+<meta name="twitter:title" content="container-with-most-water">
+<meta name="twitter:description" content="Find two lines, which together with x-axis forms a container, such that the container contains the most water.">
 
 
 
@@ -127,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://treemann.github.io/2018/04/27/pix2pix/"/>
+  <link rel="canonical" href="https://treemann.github.io/2019/03/17/container-with-most-water/"/>
 
 
 
 
 
-  <title>pix2pix | Treemann's blog</title>
+  <title>container-with-most-water | Treemann's blog</title>
   
 
 
@@ -250,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://treemann.github.io/2018/04/27/pix2pix/">
+    <link itemprop="mainEntityOfPage" href="https://treemann.github.io/2019/03/17/container-with-most-water/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Treemann">
@@ -267,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">pix2pix</h1>
+          <h1 class="post-title" itemprop="name headline">container-with-most-water</h1>
         
 
         <div class="post-meta">
@@ -279,8 +272,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-27T09:19:19+08:00">
-                2018-04-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-17T21:31:21+08:00">
+                2019-03-17
               </time>
             
 
@@ -295,8 +288,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-27T15:50:02+08:00">
-                2018-04-27
+              <time title="Post modified" itemprop="dateModified" datetime="2019-03-17T21:56:52+08:00">
+                2019-03-17
               </time>
             
           </span>
@@ -329,32 +322,21 @@
       
 
       
-        <p>Abstract: 关于GAN的一种形式pix2pix的简介</p>
+        <p>Find two lines, which together with x-axis forms a container, such that the container contains the most water.</p>
 <a id="more"></a>
-<p>paper：<a href="https://arxiv.org/abs/1611.07004" target="_blank" rel="noopener">Image-to-Image Translation with Conditional Adversarial Networks</a><br>code: <a href="https://github.com/phillipi/pix2pix" target="_blank" rel="noopener">https://github.com/phillipi/pix2pix</a></p>
 <ol>
-<li><p>简介<br>该工作出自UC Berkeley的BAIR实验室，主要是将Conditional GAN广泛应用于各种图图转换(Image-to-Image Translation)。所谓图图转换，就是给定一张原始图片，然后基于此图片生成目标图片，其中目标图片与原始图片在某些内容或者说语义上具有一致性。下图列举了部分相关的任务。</p>
-<img src="/2018/04/27/pix2pix/f1-example.JPG">
+<li><p>问题<br> 英文详细描述见链接<a href="https://leetcode.com/problems/container-with-most-water/" target="_blank" rel="noopener">container-with-most-water</a><br> 主要题意是：给定位于x轴上方的n个点，过这n个点作与x轴的垂线作为隔板。要求找到两个点，它们的隔板与x轴形成的水箱能够存储的水最多。</p>
 </li>
-<li><p>方法<br>pix2pix本质上是一个Conditional GAN。不一样的是，pix2pix将通常的Conditional GAN中需要人为控制的信息编码向量用输入的原始图片替换，对应的模型基本示意如下图。</p>
-<img src="/2018/04/27/pix2pix/f2-model.JPG">
-<p><strong>目标函数</strong></p>
-<img src="/2018/04/27/pix2pix/f5-final_loss.JPG">
-<p>其中，</p>
-<img src="/2018/04/27/pix2pix/f3-cGAN_loss.JPG">
-<img src="/2018/04/27/pix2pix/f4-L1_loss.JPG">
-<p>损失函数分为两部分，第一部分是Conditional GAN对应的adversarial loss，第二部分是约束生成图片接近ground truth的L1 loss，之所以使用L1 loss而非L2 loss，是因为使用L2 loss会使得生成的图片结果偏模糊。</p>
-</li>
-<li><p>网络结构</p>
+<li><p>分析</p>
 <ul>
-<li>Generator：U-net，对于编码器和解码器的镜像对应部分采用跨层连接(skip connections)，避免原本输入和输入图片都包含的低层次信息在编码到bottleneck的过程中丢失。</li>
-<li>Discriminator：convolutional PatchGAN，作者argue说对输入输出单纯使用L1或者L2 loss会使得生成的图片结果偏模糊，为了使得生成的图片清晰(或者说包含较丰富的高频信息)，以NxN大小的patch作为Discriminator的输入，将图片中所有patch判别结果的均值作为Discriminator最后的判别输出。在patch level进行处理的Discriminator有效地将图片建模为MRF(Markov random field)，假设间距超过patch范围的像素间相互独立，PatchGAN可以被视为是某种形式的纹理/风格损失(texture/style loss)。</li>
+<li>思路一<br>从x坐标最大和最小的两个点开始，对于高度小的那个点，它与所有其他点能构成的水箱的最大面积取决于它的高度和另一点和它在x方向上的距离，这时候最大面积就是和另外一个点配对构成的。随后该点被剔除，对剩下的点列进行同样的操作，若后面的最大面积超过原来的结果，就更新最大面积的值。这种解法的复杂度为O(N)。</li>
+<li>思路二<br>先对所有点按照高度由小到大进行排序，并记录它们的索引值。由最小的高度值开始，求取它与其他各点横坐标之差的最大值，计算与它相关的最大面积。随后对剩下的点列进行相同的操作，同时更新最大面积值。这种解法的复杂度为O(NlogN)。</li>
 </ul>
 </li>
-<li><p>特点<br>作者号称“noting is application-specific”。本方法无须根据具体应用专门设计loss，通过PatchGAN，与具体任务相关的loss是自学习得到的，与单纯计算像素误差的L1/L2 loss相比，学到的是structured loss，如前面所说PatchGAN等效于做了一个MRF的建模假设。</p>
-</li>
-<li><p>实验结果</p>
-<img src="/2018/04/27/pix2pix/f6-result.JPG"></li>
+<li><p>code<br> (1)</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max_area = <span class="number">0</span>, start = <span class="number">0</span>, end = height.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">while</span> (start &lt; end) &#123;</span><br><span class="line">            max_area = max(max_area, (end - start)*(height[start] &lt; height[end] ? height[start++] : height[end--]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max_area;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p> (2)</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; sort_index(<span class="built_in">vector</span>&lt;T&gt; &amp;A) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index(A.size());</span><br><span class="line">        iota(index.begin(), index.end(), <span class="number">0</span>);</span><br><span class="line">        sort(index.begin(), index.end(), </span><br><span class="line">            [&amp;A](<span class="keyword">int</span> i1, <span class="keyword">int</span> i2) &#123;<span class="keyword">return</span> A[i1] &lt; A[i2];&#125;);</span><br><span class="line">        sort(A.begin(), A.end());</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">max_range</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; index, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> match_i =  *max_element(index.begin() + i, index.end(),</span><br><span class="line">                        [&amp;index, i](<span class="keyword">int</span> i1, <span class="keyword">int</span> i2) &#123;<span class="keyword">return</span> <span class="built_in">abs</span>(index[i] - i1) &lt; <span class="built_in">abs</span>(index[i] - i2);&#125;);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">abs</span>(index[i] - match_i);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index = sort_index(height);</span><br><span class="line">        <span class="keyword">int</span> max_area = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; height.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> new_area = height[i] * max_range(index, i);</span><br><span class="line">            max_area = max_area &lt; new_area ? new_area : max_area;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max_area;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -373,9 +355,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CV/" rel="tag"># CV</a>
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
           
-            <a href="/tags/GAN/" rel="tag"># GAN</a>
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
           
         </div>
       
@@ -388,8 +370,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/14/Change-default-brightness-in-Ubuntu14-04/" rel="next" title="Change default brightness in Ubuntu14.04">
-                <i class="fa fa-chevron-left"></i> Change default brightness in Ubuntu14.04
+              <a href="/2019/03/17/string-to-integer/" rel="next" title="string-to-integer">
+                <i class="fa fa-chevron-left"></i> string-to-integer
               </a>
             
           </div>
@@ -397,10 +379,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/29/u-net/" rel="prev" title="u-net">
-                u-net <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
