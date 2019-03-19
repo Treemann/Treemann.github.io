@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="machine learning," />
+  <meta name="keywords" content="algorithm," />
 
 
 
@@ -79,27 +79,18 @@
 
 
 
-<meta name="description" content="Abstract: 机器学习基石（林轩田）第二讲，介绍感知机(Perceptron)内容。">
-<meta name="keywords" content="machine learning">
+<meta name="description" content="Introduction to heap and heap sort.">
+<meta name="keywords" content="algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="machine-learning-foundations-2">
-<meta property="og:url" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/index.html">
+<meta property="og:title" content="heap-sort">
+<meta property="og:url" content="https://treemann.github.io/2019/03/19/heap-sort/index.html">
 <meta property="og:site_name" content="Treemann&#39;s blog">
-<meta property="og:description" content="Abstract: 机器学习基石（林轩田）第二讲，介绍感知机(Perceptron)内容。">
+<meta property="og:description" content="Introduction to heap and heap sort.">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/formula-1.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/formula-2.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/pla.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/cyclic-pla.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/linear-1.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/linear-2.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/linear-3.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/pocket.JPG">
-<meta property="og:updated_time" content="2018-05-02T03:16:05.645Z">
+<meta property="og:updated_time" content="2019-03-19T16:37:49.614Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="machine-learning-foundations-2">
-<meta name="twitter:description" content="Abstract: 机器学习基石（林轩田）第二讲，介绍感知机(Perceptron)内容。">
-<meta name="twitter:image" content="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/formula-1.JPG">
+<meta name="twitter:title" content="heap-sort">
+<meta name="twitter:description" content="Introduction to heap and heap sort.">
 
 
 
@@ -129,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/"/>
+  <link rel="canonical" href="https://treemann.github.io/2019/03/19/heap-sort/"/>
 
 
 
 
 
-  <title>machine-learning-foundations-2 | Treemann's blog</title>
+  <title>heap-sort | Treemann's blog</title>
   
 
 
@@ -252,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://treemann.github.io/2018/05/01/machine-learning-foundations-2/">
+    <link itemprop="mainEntityOfPage" href="https://treemann.github.io/2019/03/19/heap-sort/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Treemann">
@@ -269,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">machine-learning-foundations-2</h1>
+          <h1 class="post-title" itemprop="name headline">heap-sort</h1>
         
 
         <div class="post-meta">
@@ -281,8 +272,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-01T21:33:50+08:00">
-                2018-05-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T23:42:08+08:00">
+                2019-03-19
               </time>
             
 
@@ -297,8 +288,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-02T11:16:05+08:00">
-                2018-05-02
+              <time title="Post modified" itemprop="dateModified" datetime="2019-03-20T00:37:49+08:00">
+                2019-03-20
               </time>
             
           </span>
@@ -331,34 +322,30 @@
       
 
       
-        <p>Abstract: 机器学习基石（林轩田）第二讲，介绍感知机(Perceptron)内容。</p>
+        <p>Introduction to heap and heap sort.</p>
 <a id="more"></a>
 <ol>
-<li><p>感知机的假设(hyperplanes in $\mathbb{R}^d$)：</p>
- <img src="/2018/05/01/machine-learning-foundations-2/formula-1.JPG">
-<p> $$perceptrons \Leftrightarrow linear(binary)classifiers$$</p>
+<li><p>什么是堆</p>
+<ul>
+<li>堆（heap）是一种数据结构，是一棵<em>完全二叉树</em>且满足性质：所有非叶子结点的值均不大于或均不小于其左、右孩子结点的值。</li>
+<li>最大堆的父节点的值总是大于其左右孩子的值，最小堆反之。</li>
+<li>堆的特性可以用于排序，如果要排序后的顺序为从小到大，则需选择最大堆，反之选择最小堆。</li>
+</ul>
 </li>
-<li><p>从假设空间H中找出真实关系f的近似g。</p>
- <img src="/2018/05/01/machine-learning-foundations-2/formula-2.JPG">
-<p> <strong>Perceptron Learning Algorithm (PLA)</strong></p>
- <img src="/2018/05/01/machine-learning-foundations-2/pla.JPG">
-<p> 当y=+1的样例被错判时，w与x内积为负，夹角太大，需要往小的方向纠正，反之亦然。</p>
-<p> <strong>具体实现</strong><br> 通过依序循环查找直至完全没有错例为止。</p>
- <img src="/2018/05/01/machine-learning-foundations-2/cyclic-pla.JPG">
+<li><p>堆排序<br> 一个无序数组，以升序排序为例，使用堆排序需要以下步骤：</p>
+<ul>
+<li><ol>
+<li>建堆：以无序数组为基础建立最大堆</li>
+</ol>
 </li>
-<li><p>算法的停止条件：线性可分</p>
- <img src="/2018/05/01/machine-learning-foundations-2/linear-1.JPG">
-<p> 其中，使用$w_f^T w_t$表示当前学到的权重w与真实值的相近程度。</p>
- <img src="/2018/05/01/machine-learning-foundations-2/linear-2.JPG">
-<p> 假设从$w_0=0$开始，经过T轮的错误矫正：<br> $$<br> \begin{align}<br> \frac{w_f^T w_T}{||w_f|| ||w_T||} &amp;\geq \frac{w_f^T w_0+T\min\limits_{n}y_nw_f^Tx_n}{||w_f|| ||w_T||}\\<br> &amp;\geq \frac{w_f^T w_0+T\min\limits_{n}y_nw_f^Tx_n}{||w_f||\sqrt{||w_0||^2+T\max\limits_{n}||x_n||^2}}\\<br> \xrightarrow{w_0=0} &amp;\geq \sqrt{T} \frac{\min\limits_{n}y_nw_f^Tx_n/||w_f||}{\max\limits_{n}||x_n||} \\<br> \xrightarrow[R^2=\max\limits_{n}||x_n||^2]{\rho=\min\limits_{n}y_n\frac{w_f^T}{||w_f||}x_n} &amp;\geq \sqrt{T}\frac{\rho}{R}<br> \end{align}<br> $$<br> 因为$\frac{w_f^T w_T}{||w_f|| ||w_T||}$的最大值为1，因此在线性可分的情况下，PLA修正次数满足：<br> $$<br> T \leq \frac{R^2}{\rho^2}<br> $$</p>
- <img src="/2018/05/01/machine-learning-foundations-2/linear-3.JPG">
-<p> 实际上，我们可以知道R大小，但是w_f却是未知的，因此实际需要的修正次数T边界也未知。如果迭代一段时间后仍未停止，我们无法判断是未完成(线性可分)或者根本就是线性不可分的。</p>
+<li><ol>
+<li>输出堆顶元素（最大值），将剩余的元素调整为最大堆，反复执行至仅剩一元素，最终输出升序数组<br>堆排序通常使用数组实现，时间复杂度为O(NlogN)，空间复杂度为O(1)，是不稳定排序。 </li>
+</ol>
 </li>
-<li><p>考虑噪声存在(Pocket Algorithm)<br> 实际采集到的数据总是有噪声的干扰，所以有可能会线性不可分，可以尝试找到：<br> $$<br> w_g \leftarrow \mathop{\arg\min}_{w}\sum_{n=1}^{N}I[y_n \neq sign(w^Tx_n)]<br> $$<br> 其中，$I[·]$为指示函数，内容为真时取1，为假时取0。<br> 该问题已被证实为NP难。</p>
-<p> <strong>Pocket Algorithm</strong><br> modify PLA algorithm (black lines) by keeping best weights in pocket<br> 基本思想是对比修改前后的错误样例，若修改后错误变少，则执行修改，有贪心算法的意思。</p>
- <img src="/2018/05/01/machine-learning-foundations-2/pocket.JPG">
-<p> 该算法相比PLA，缺点是速度慢，每次更新前都要统计错误样例数并进行对比。</p>
+</ul>
 </li>
+<li><p>code</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 由于堆是完全二叉树，因此可以存储在数组中，某节点i的父结点、左右子结点的索引可以计算得出</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getParent</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (i - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getLeft</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * i + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getRight</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span> * i + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 辅助函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a,<span class="keyword">int</span> *b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp = *a;</span><br><span class="line">    *a = *b;</span><br><span class="line">    *b = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 维护堆的性质：时间复杂度O(logN)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">holdHeap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr, <span class="keyword">int</span> i, <span class="keyword">int</span> heapSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = getLeft(i),;</span><br><span class="line">    <span class="keyword">int</span> right = getRight(i);</span><br><span class="line">    <span class="keyword">int</span> max_i = i;</span><br><span class="line">    <span class="keyword">if</span> (left &lt; heapSize &amp;&amp; arr[left] &gt; arr[max_i])</span><br><span class="line">        max_i = left;</span><br><span class="line">    <span class="keyword">if</span> (right &lt; heapSize &amp;&amp; arr[right] &gt; arr[max_i])</span><br><span class="line">        max_i = right;</span><br><span class="line">    <span class="keyword">if</span> (max_i != i) &#123;</span><br><span class="line">        swap(arr[i], arr[max_i]);</span><br><span class="line">        holdHeap(arr, max_i, heapSize);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 建堆：时间复杂度O(N)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">buildMaxHeap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> heapSize = arr.size();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i= heapSize/<span class="number">2</span> - <span class="number">1</span>; i&gt;=<span class="number">0</span> ; i--) <span class="comment">// 因为是完全二叉树，最后的非叶子结点为 heapSize/2 -  1</span></span><br><span class="line">        holdMaxHeap(arr, i,heapSize);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 堆排序：时间复杂度O(NlogN)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heapSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr)</span> </span>&#123;</span><br><span class="line">    buildMaxHeap(arr);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = arr.size() - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        swap(arr[<span class="number">0</span>], arr[i]);           <span class="comment">// 将当前最大的放置到数组末尾</span></span><br><span class="line">        holdHeap(arr, <span class="number">0</span>, i);            <span class="comment">// 将未完成排序的部分继续进行堆排序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -377,7 +364,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
           
         </div>
       
@@ -390,8 +377,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/01/machine-learning-foundations-1/" rel="next" title="machine-learning-foundations-1">
-                <i class="fa fa-chevron-left"></i> machine-learning-foundations-1
+              <a href="/2019/03/18/zigzag-conversion/" rel="next" title="zigzag-conversion">
+                <i class="fa fa-chevron-left"></i> zigzag-conversion
               </a>
             
           </div>
@@ -399,10 +386,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/02/Least-Square-GAN/" rel="prev" title="Least-Square-GAN">
-                Least-Square-GAN <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -700,26 +683,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
