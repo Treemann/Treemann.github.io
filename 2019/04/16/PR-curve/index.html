@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="machine learning," />
+  <meta name="keywords" content="algorithm," />
 
 
 
@@ -79,28 +79,18 @@
 
 
 
-<meta name="description" content="Abstract: 机器学习基石（林轩田）第四讲，讨论学习是否是可能的(Feasibility of Learning)。">
-<meta name="keywords" content="machine learning">
+<meta name="description" content="Talk about P-R curve, ROC, AP/mAP/mmAP">
+<meta name="keywords" content="algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="machine-learning-foundations-4">
-<meta property="og:url" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/index.html">
+<meta property="og:title" content="PR curve">
+<meta property="og:url" content="https://treemann.github.io/2019/04/16/PR-curve/index.html">
 <meta property="og:site_name" content="Treemann&#39;s blog">
-<meta property="og:description" content="Abstract: 机器学习基石（林轩田）第四讲，讨论学习是否是可能的(Feasibility of Learning)。">
+<meta property="og:description" content="Talk about P-R curve, ROC, AP/mAP/mmAP">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-1.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-2.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-3.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-4.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-5.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-6.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-7.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-8.JPG">
-<meta property="og:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-9.JPG">
-<meta property="og:updated_time" content="2018-05-07T08:19:59.551Z">
+<meta property="og:updated_time" content="2019-04-16T16:04:02.292Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="machine-learning-foundations-4">
-<meta name="twitter:description" content="Abstract: 机器学习基石（林轩田）第四讲，讨论学习是否是可能的(Feasibility of Learning)。">
-<meta name="twitter:image" content="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/figure-3-1.JPG">
+<meta name="twitter:title" content="PR curve">
+<meta name="twitter:description" content="Talk about P-R curve, ROC, AP/mAP/mmAP">
 
 
 
@@ -130,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/"/>
+  <link rel="canonical" href="https://treemann.github.io/2019/04/16/PR-curve/"/>
 
 
 
 
 
-  <title>machine-learning-foundations-4 | Treemann's blog</title>
+  <title>PR curve | Treemann's blog</title>
   
 
 
@@ -253,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://treemann.github.io/2018/05/07/machine-learning-foundations-4/">
+    <link itemprop="mainEntityOfPage" href="https://treemann.github.io/2019/04/16/PR-curve/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Treemann">
@@ -270,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">machine-learning-foundations-4</h1>
+          <h1 class="post-title" itemprop="name headline">PR curve</h1>
         
 
         <div class="post-meta">
@@ -282,8 +272,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-07T10:43:57+08:00">
-                2018-05-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-16T23:09:03+08:00">
+                2019-04-16
               </time>
             
 
@@ -298,8 +288,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-07T16:19:59+08:00">
-                2018-05-07
+              <time title="Post modified" itemprop="dateModified" datetime="2019-04-17T00:04:02+08:00">
+                2019-04-17
               </time>
             
           </span>
@@ -332,46 +322,27 @@
       
 
       
-        <p>Abstract: 机器学习基石（林轩田）第四讲，讨论学习是否是可能的(Feasibility of Learning)。</p>
-<a id="more"></a>
+        <p>Talk about P-R curve, ROC, AP/mAP/mmAP<br><a id="more"></a></p>
 <ol>
-<li><p>Learning is Impossible?</p>
+<li><p>Precision-Recall Curve</p>
+<p> | -         | 预测：True     | 预测：False     |<br> | -         | -             | -               |<br> | 真实：True | True Positive | False Negative |<br> | 真实：False| False Positive| True Negative  |</p>
+<p> Precision：预测出为正例中有多少是真正例<br> Precision = TP / (TP + FP)<br> Recall：预测出的真正例占总正例的比例<br> Recall = TP / (TP + FN)</p>
+<p> 绘制PR曲线的流程：<br> 1.1 将样本根据预测的得分由高到低排序<br> 1.2 按照排好的顺序，逐个样本选择阈值，得分大于该阈值的为正例，反之为负例，计算对应的Precision和Recall<br> 注意：</p>
 <ul>
-<li>No Free Lunch<br>基于数据集D的学习去推测D之外的数据的映射输出注定要失败，因为未知的映射关系存在很多可能性。</li>
+<li>随着选择的阈值不断降低，TP会增加（正例总数TP+FN不变），Recall是非严格递增的</li>
+<li>随着选择的阈值不断降低，TP会增加，对于一个还行的分类器来说，FP从大趋势上应该是增加的越来越快（被预测为正例的负例越来越多），因此总体上Precision的趋势是减小的。但是，负例的分布密度如果不随着得分的降低严格增大的话，常常会体现为Precision不单调递减。</li>
+<li>最开始得分阈值最高，TP为0，所以PR曲线过点（0，0）。若得分最高的都是正例，那么recall从0增大时，precision基本从1开始下降。若得分最高的都是负例，那么recall从0增大时，precision会先从0上升。</li>
+<li>理论上PR曲线不会过点（1, 0），除非负例远大于正例，P才可能趋近于0。</li>
+<li>当存在一个阈值能够完全分开正例和负例时，PR曲线面积为1x1。因为：当前划分阈值高于该阈值时，FP=0，Precision=1；当划分阈值等于该阈值时，FP=FN=0，Recall=1，Precision=1。</li>
 </ul>
-</li>
-<li><p>Probability to the Rescue</p>
-<ul>
-<li>Inferring Something Unknown<br>  以推断装有橙球和绿球的瓶子中橙球的比例为例子：<br>  真实：橙球概率 = $\mu$，绿球概率 = $1-\mu$<br>  采样：橙球概率 = $\nu$，绿球概率 = $1-\nu$<br>  in-sample的 $\nu$ 是否包含了out-of-sample的 $\mu$ 的信息呢？<ul>
-<li>possibly not: sample can be mostly green while bin is mostly orange</li>
-<li>probably yes: in-sample $\nu$ likely close to unknown $\mu$</li>
-</ul>
-<hr>
-  <strong>Hoeffding’s Inequality</strong><br>  in big sample (N large), $\nu$ is probably close to $\mu$ (within $\epsilon$)<br>  $$ \mathbb{P}[|\nu-\mu|&gt;\epsilon]\leq 2exp(-2{\epsilon}^{2}N) $$<br>  so, the statement ‘$\nu=\mu$’ is probably approximately correct (PAC)<ul>
-<li>larger sample size N or looser gap $\epsilon$ $\Rightarrow$ higher probability for ‘$\nu=\mu$’</li>
-<li>if large N, can probably infer unknown $\mu$ by known $\nu$</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Connection to Learning</p>
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-1.JPG">
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-2.JPG">
-<p> 对任意固定的假设h，在数据量足够大的情况下(N足够大)，根据Hoeffding’s Inequality：<br> $$ \mathbb{P}[|{E}_{in}(h)-{E}_{out}(h)|&gt;\epsilon]\leq 2exp(-2{\epsilon}^{2}N) $$<br> 故：<br> $$<br> ‘{E}_{in}(h)\approx{E}_{out}(h)’\ and\ ‘{E}_{in}(h)\ small’<br> \Rightarrow {E}_{out}(h)\ small \Rightarrow h \approx f\ with\ repect\ to\ P<br> $$<br> <strong>Verification of One h</strong></p>
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-3.JPG">
-<p> 算法选出的g是否能近似真实的f，关键在于算法是自由选择而非被迫选择(有偏)。<br> 验证的流程图：</p>
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-4.JPG">
-</li>
-<li><p>Connection to Real Learning<br> <strong>Multiple h</strong><br> 以抛硬币估计正反面概率为例：</p>
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-5.JPG">
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-6.JPG">
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-7.JPG">
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-8.JPG">
-<p> 最合理的算法 $\mathcal{A}$ 选择 ${E}_{in}(h_m)$ 最小的 $h_m$ 作为 g，有些像pocket PLA的贪婪性质。</p>
- <img src="/2018/05/07/machine-learning-foundations-4/figure-3-9.JPG">
-<p> 即，对于有限的假设空间，在采样数据N足够大(意味着 ${E}_{out}(g)\approx{E}_{in}(g)$ )且算法 $\mathcal{A}$ 选择的 g 满足 ${E}_{in}(g)\approx 0$，则 ${E}_{out}(g)\approx 0$ ，学习是可能的。</p>
 </li>
 </ol>
+<p>##TODO</p>
+<ul>
+<li>[] ROC</li>
+<li>[] AP/mAP/mmAP</li>
+<li>[] code demo</li>
+</ul>
 
       
     </div>
@@ -389,7 +360,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+            <a href="/tags/algorithm/" rel="tag"># algorithm</a>
           
         </div>
       
@@ -402,8 +373,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/03/CoGAN-CycleGAN-DualGAN/" rel="next" title="CoGAN-CycleGAN-DualGAN">
-                <i class="fa fa-chevron-left"></i> CoGAN-CycleGAN-DualGAN
+              <a href="/2019/03/19/heap-sort/" rel="next" title="heap-sort">
+                <i class="fa fa-chevron-left"></i> heap-sort
               </a>
             
           </div>
@@ -411,10 +382,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/08/machine-learning-foundations-5/" rel="prev" title="machine-learning-foundations-5">
-                machine-learning-foundations-5 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -712,26 +679,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
